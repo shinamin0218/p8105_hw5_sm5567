@@ -129,12 +129,11 @@ library(broom)
 ```{r message = FALSE, warning= FALSE}
 comb_df = 
   tibble(
-    files = list.files("data/", full.names = TRUE),
-    subject_id = tools::file_path_sans_ext(basename(files)),
-    arm = str_extract(subject_id, "control|experimental"),
-    data = map(files, read_csv)
-    ) %>% 
-unnest(data)
+    files = list.files("data/"),
+    path = str_c("data/", files)
+  ) %>% 
+  mutate(data = map(path, read_csv)) %>%
+  unnest()
 ```
 
 
