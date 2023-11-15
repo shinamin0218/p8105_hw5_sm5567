@@ -228,6 +228,21 @@ sim_results_2 |>
 * Describe the association between effect size and power.
 
 
+```{r}
+avg_estimate = 
+  sim_results_2 |> 
+  group_by(mu) |> 
+  summarize(average_estimate = mean(estimate)) |> 
+  ungroup()
+
+avg_rejected_estimate = 
+  sim_results_2 |> 
+  group_by(mu) |> 
+  filter(p.value < 0.05) |> 
+  summarize(average_estimate = mean(estimate)) |> 
+  ungroup()
+```
+
 ## Make a plot showing the average estimate of μ̂ on the y axis and the true value of μ on the x axis. Make a second plot (or overlay on the first) the average estimate of μ̂ only in samples for which the null was rejected on the y axis and the true value of μ on the x axis. Is the sample average of μ̂ across tests for which the null is rejected approximately equal to the true value of μ? Why or why not?
 
 
